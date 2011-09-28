@@ -1,0 +1,67 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+die q{
+Usage: p [-lneE etc] 'code'
+    The code can make use of:
+    r   to File::Slurp::read_file
+    w   to File::Slurp::write_file
+    S   to say()
+    p   to print()
+    dd  to Data::Dump::dd()
+    jd  to JSON::XS::encode (utf8/pretty)
+    jl  to JSON::XS::decode (utf8/allow nonref) a thing
+    yd  to YAML::Dump()
+    yl  to YAML::Load()
+} unless @ARGV;
+unshift @ARGV, '-E' if @ARGV == 1;
+
+exec
+    'perl',
+    '-Mwarnings',
+    '-MFile::Slurp',
+    '-MJSON::XS',
+    '-MData::Dump',
+    '-MYAML::XS',
+    '-Mutf8::all',
+    '-MClass::Autouse=:superloader',
+    '-E',
+    q[BEGIN {
+        sub r  { scalar read_file shift }
+        sub w  { write_file @_          }
+        sub S  { say @_ ? @_ : $_       }
+        sub p  { print @_ ? @_ : $_     }
+        sub yd { print Dump(shift)      }
+        sub yl { Load(shift)            }
+        sub jd { print JSON::XS->new->utf8->pretty->encode(shift) }
+        sub jl { JSON::XS->new->utf8->allow_nonref->decode(shift) }
+    }], @ARGV;
+
+
+# PODNAME: racknotes
+# ABSTRACT: Steroids for your perl one-liners.
+
+=head1 SYNOPSIS
+
+    Usage: p [-lneE etc] 'code'
+        The code can make use of:
+        r   to File::Slurp::read_file
+        w   to File::Slurp::write_file
+        S   to say()
+        p   to print()
+        dd  to Data::Dump::dd()
+        jd  to JSON::XS::encode (utf8/pretty)
+        jl  to JSON::XS::decode (utf8/allow nonref) a thing
+        yd  to YAML::Dump()
+        yl  to YAML::Load()
+
+    Examples:
+
+    p 'dd [File::Spec->path]'   # dynamically load arbitrary modules
+    p -pe 's/foo/bar/' foo.txt  # use your favorite options like -lane
+    p 'say "hello world!"       # -E is assumed if no options are provided
+    p 'dd yl r "config.yml"'    # chain commands
+    p 'dd ExtUtils::Installed->new->modules' # list all installed modules
+
+=cut
