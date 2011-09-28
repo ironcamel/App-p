@@ -1,7 +1,7 @@
 =head1 INSTALLATION
 
-    sudo cpan Net::OpenStack::Compute
+    sudo cpan App::p
 
 =head1 DOCUMENTATION
 
-see L<Net::OpenStack::Compute>
+see L<App::p>
