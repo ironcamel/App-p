@@ -13,6 +13,8 @@ package App::p;
     p 'say "hello world!"'      # -E is assumed if no options are provided
     p 'dd yl r "config.yml"'    # chain commands
     p 'dd ExtUtils::Installed->new->modules' # list all installed modules
+    p '  dd xl r "/etc/xml/xml-core.xml"'# print dump of hash converted xml
+    p 'p xd xl r "/etc/xml/xml-core.xml"'# print xml converted from hash
 
 =head1 ACKNOWLEDGEMENTS
 
