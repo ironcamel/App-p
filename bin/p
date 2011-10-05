@@ -12,6 +12,8 @@ Usage: p [-lneE etc] 'code'
     dd  to Data::Dump::dd()
     jd  to JSON::XS::encode (utf8/pretty)
     jl  to JSON::XS::decode (utf8/allow nonref) a thing
+    xd  to XML::Hash::LX::xml2hash 
+    xl  to XML::Hash::LX::hash2xml
     yd  to YAML::Dump()
     yl  to YAML::Load()
 } unless @ARGV;
@@ -22,6 +24,7 @@ exec
     '-Mwarnings',
     '-MFile::Slurp',
     '-MJSON::XS',
+    '-MXML::Hash::LX',
     '-MData::Dump',
     '-MYAML::XS',
     '-Mutf8::all',
@@ -34,6 +37,8 @@ exec
         sub p  { print @_ ? @_ : $_     }
         sub yd { print Dump(shift)      }
         sub yl { Load(shift)            }
+        sub xd { hash2xml(shift)        }
+        sub xl { xml2hash(shift)        }
         sub jd { print JSON::XS->new->utf8->pretty->encode(shift) }
         sub jl { JSON::XS->new->utf8->allow_nonref->decode(shift) }
     }], @ARGV;
