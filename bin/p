@@ -16,19 +16,21 @@ Usage: p [-lneE etc] 'code'
     xl  to XML::Hash::LX::hash2xml
     yd  to YAML::Dump()
     yl  to YAML::Load()
+    sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
 } unless @ARGV;
 unshift @ARGV, '-E' if @ARGV == 1;
 
 exec
     'perl',
     '-Mwarnings',
+    '-MClass::Autouse=:superloader',
+    '-MData::Dump',
     '-MFile::Slurp',
     '-MJSON::XS',
-    '-MXML::Hash::LX',
-    '-MData::Dump',
-    '-MYAML::XS',
+    '-MList::AllUtils=:all',
     '-Mutf8::all',
-    '-MClass::Autouse=:superloader',
+    '-MXML::Hash::LX',
+    '-MYAML::XS',
     '-E',
     q[BEGIN {
         sub r  { scalar read_file shift }
@@ -60,6 +62,7 @@ exec
         jl  to JSON::XS::decode (utf8/allow nonref) a thing
         yd  to YAML::Dump()
         yl  to YAML::Load()
+        sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
 
     Examples:
 
@@ -67,6 +70,9 @@ exec
     p -pe 's/foo/bar/' foo.txt  # use your favorite options like -lane
     p 'say "hello world!"'      # -E is assumed if no options are provided
     p 'dd yl r "config.yml"'    # chain commands
+    p 'S sum 1,2,3,4'           # all of List::AllUtils is at your fingertips
     p 'dd ExtUtils::Installed->new->modules' # list all installed modules
+    p '  dd xl r "/etc/xml/xml-core.xml"'# print dump of hash converted xml
+    p 'p xd xl r "/etc/xml/xml-core.xml"'# print xml converted from hash
 
 =cut
