@@ -17,6 +17,8 @@ package App::p;
         dd  to Data::Dump::dd()
         jd  to JSON::XS::encode (utf8/pretty)
         jl  to JSON::XS::decode (utf8/allow nonref) a thing
+        xd  to XML::Hash::LX::hash2xml()
+        xl  to XML::Hash::LX::xml2hash()
         yd  to YAML::Dump()
         yl  to YAML::Load()
         sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils

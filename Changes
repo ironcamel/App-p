@@ -1,5 +1,8 @@
 Revision history for App-p
 
+0.0101  2011-12-01
+        Documented xml support.
+
 0.0100  2011-12-01
         Added support for xml. Thanks Stefan Petrea!
         Added support for List::AllUtils.
