@@ -1,5 +1,8 @@
 Revision history for App-p
 
+0.0102  2012-02-10
+        Fixed help docs for xd and xl usage. Thanks datamuc.
+
 0.0101  2011-12-01
         Documented xml support.
 
