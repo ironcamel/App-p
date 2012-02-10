@@ -23,6 +23,8 @@ unshift @ARGV, '-E' if @ARGV == 1;
 exec
     'perl',
     '-Mwarnings',
+    '-MHash::Flatten=:all',
+    '-MData::DPath=dpath',
     '-MClass::Autouse=:superloader',
     '-MData::Dump',
     '-MFile::Slurp',
@@ -65,6 +67,8 @@ exec
         yd  to YAML::Dump()
         yl  to YAML::Load()
         sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
+        flatten,unflatten of Hash::Flatten
+        dpath             of Data::Dpath
 
     Examples:
 
@@ -76,5 +80,6 @@ exec
     p 'dd ExtUtils::Installed->new->modules' # list all installed modules
     p '  dd xl r "/etc/xml/xml-core.xml"'# print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'# print xml converted from hash
-
+    p 'dd flatten {foo=>{var=>2}}'       # print {"foo.var" => 2}
+    p 'dd +{foo=>{var=>2}} ~~ dpath "//foo"' # dpath search for foo, prints  [{var => 2}]
 =cut

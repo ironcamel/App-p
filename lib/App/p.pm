@@ -33,7 +33,8 @@ package App::p;
     p 'dd ExtUtils::Installed->new->modules' # list all installed modules
     p '  dd xl r "/etc/xml/xml-core.xml"'# print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'# print xml converted from hash
-
+    p 'dd flatten {foo=>{var=>2}}'       # print {"foo.var" => 2}
+    p 'dd +{foo=>{var=>2}} ~~ dpath "//foo"' # dpath search for foo, prints  [{var => 2}]
 =head1 ACKNOWLEDGEMENTS
 
 This is based on Randy Stauner's
