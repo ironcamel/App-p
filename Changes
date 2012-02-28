@@ -1,5 +1,9 @@
 Revision history for App-p
 
+0.0200  2012-02-28
+        Added support for IO::All and IO::All::HTTP.
+        Starting to use Pod::Usage.
+
 0.0102  2012-02-10
         Fixed help docs for xd and xl usage. Thanks datamuc.
 

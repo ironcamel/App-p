@@ -14,6 +14,7 @@ package App::p;
         w   to File::Slurp::write_file
         S   to say()
         p   to print()
+        io  to access an IO::All object (with HTTP support)
         dd  to Data::Dump::dd()
         jd  to JSON::XS::encode (utf8/pretty)
         jl  to JSON::XS::decode (utf8/allow nonref) a thing
@@ -33,6 +34,7 @@ package App::p;
     p 'dd ExtUtils::Installed->new->modules' # list all installed modules
     p '  dd xl r "/etc/xml/xml-core.xml"'# print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'# print xml converted from hash
+    p 'p io("http://icanhazip.com")->all' # supports IO::All with HTTP
 
 =head1 ACKNOWLEDGEMENTS
 

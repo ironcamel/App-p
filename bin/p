@@ -1,23 +1,10 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use Pod::Usage;
 
-die q{
-Usage: p [-lneE etc] 'code'
-    The code can make use of:
-    r   to File::Slurp::read_file
-    w   to File::Slurp::write_file
-    S   to say()
-    p   to print()
-    dd  to Data::Dump::dd()
-    jd  to JSON::XS::encode (utf8/pretty)
-    jl  to JSON::XS::decode (utf8/allow nonref) a thing
-    xd  to XML::Hash::LX::hash2xml
-    xl  to XML::Hash::LX::xml2hash
-    yd  to YAML::Dump()
-    yl  to YAML::Load()
-    sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
-} unless @ARGV;
+pod2usage() unless @ARGV;
+
 unshift @ARGV, '-E' if @ARGV == 1;
 
 exec
@@ -26,6 +13,7 @@ exec
     '-MClass::Autouse=:superloader',
     '-MData::Dump',
     '-MFile::Slurp',
+    '-MIO::All',
     '-MJSON::XS',
     '-MList::AllUtils=:all',
     '-Mutf8::all',
@@ -57,6 +45,7 @@ exec
         w   to File::Slurp::write_file
         S   to say()
         p   to print()
+        io  to access an IO::All object (with HTTP support)
         dd  to Data::Dump::dd()
         jd  to JSON::XS::encode (utf8/pretty)
         jl  to JSON::XS::decode (utf8/allow nonref) a thing
@@ -76,5 +65,6 @@ exec
     p 'dd ExtUtils::Installed->new->modules' # list all installed modules
     p '  dd xl r "/etc/xml/xml-core.xml"'# print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'# print xml converted from hash
+    p 'p io("http://icanhazip.com")->all' # supports IO::All with HTTP
 
 =cut
