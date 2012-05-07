@@ -3,9 +3,11 @@ use strict;
 use warnings;
 use Pod::Usage;
 
-pod2usage() unless @ARGV;
+local $/;
+my @args = -t STDIN ? @ARGV : <STDIN>;
+unshift @args, '-E' if @args == 1;
 
-unshift @ARGV, '-E' if @ARGV == 1;
+pod2usage() unless @args;
 
 exec
     'perl',
@@ -31,7 +33,7 @@ exec
         sub xl { xml2hash(shift)        }
         sub jd { print JSON::XS->new->utf8->pretty->encode(shift) }
         sub jl { JSON::XS->new->utf8->allow_nonref->decode(shift) }
-    }], @ARGV;
+    }], @args;
 
 
 # PODNAME: p
@@ -66,5 +68,6 @@ exec
     p '  dd xl r "/etc/xml/xml-core.xml"'# print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'# print xml converted from hash
     p 'p io("http://icanhazip.com")->all' # supports IO::All with HTTP
+    echo 'S "hello"' | p # supports piping via STDIN
 
 =cut
