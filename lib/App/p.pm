@@ -14,7 +14,6 @@ package App::p;
         w   to File::Slurp::write_file
         S   to say()
         p   to print()
-        io  to access an IO::All object (with HTTP support)
         dd  to Data::Dump::dd()
         jd  to JSON::XS::encode (utf8/pretty)
         jl  to JSON::XS::decode (utf8/allow nonref) a thing
@@ -22,6 +21,7 @@ package App::p;
         xl  to XML::Hash::LX::xml2hash()
         yd  to YAML::Dump()
         yl  to YAML::Load()
+        get,head,getprint,getstore,mirror from LWP::Simple
         sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
 
     Examples:
@@ -32,9 +32,9 @@ package App::p;
     p 'dd yl r "config.yml"'    # chain commands
     p 'S sum 1,2,3,4'           # all of List::AllUtils is at your fingertips
     p 'dd ExtUtils::Installed->new->modules' # list all installed modules
-    p '  dd xl r "/etc/xml/xml-core.xml"'# print dump of hash converted xml
-    p 'p xd xl r "/etc/xml/xml-core.xml"'# print xml converted from hash
-    p 'p io("http://icanhazip.com")->all' # supports IO::All with HTTP
+    p '  dd xl r "/etc/xml/xml-core.xml"'    # print dump of hash converted xml
+    p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
+    p 'p get "http://icanhazip.com"'         # print contents of url
 
 =head1 ACKNOWLEDGEMENTS
 

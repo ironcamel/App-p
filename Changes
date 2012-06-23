@@ -1,5 +1,8 @@
 Revision history for App-p
 
+0.0300  2012-02-28
+        Added support for LWP::Simple in place of IO::All.
+
 0.0200  2012-02-28
         Added support for IO::All and IO::All::HTTP.
         Starting to use Pod::Usage.
