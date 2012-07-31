@@ -1,5 +1,8 @@
 Revision history for App-p
 
+0.0301  2012-07-31
+        xd should print results. Thanks Philip Durbin. 
+
 0.0300  2012-02-28
         Added support for LWP::Simple in place of IO::All.
 
