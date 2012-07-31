@@ -27,7 +27,7 @@ exec
         sub p  { print @_ ? @_ : $_     }
         sub yd { print Dump(shift)      }
         sub yl { Load(shift)            }
-        sub xd { hash2xml(shift)        }
+        sub xd { print hash2xml(shift)  }
         sub xl { xml2hash(shift)        }
         sub jd { print JSON::XS->new->utf8->pretty->encode(shift) }
         sub jl { JSON::XS->new->utf8->allow_nonref->decode(shift) }
