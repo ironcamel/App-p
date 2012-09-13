@@ -1,5 +1,9 @@
 Revision history for App-p
 
+0.0302  2012-09-13
+        Converted README.pod to markdown. This prevents installation of
+        App::README. Thanks Tommy Stanton.
+
 0.0301  2012-07-31
         xd should print results. Thanks Philip Durbin. 
 
