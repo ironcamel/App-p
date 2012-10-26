@@ -1,12 +1,16 @@
-use strict;
-use warnings;
-package App::p;
+# About
 
-# VERSION
+    Steroids for your perl one-liners. Is that even possible?
 
-# ABSTRACT: Steroids for your perl one-liners.
+# Installation
 
-=head1 SYNOPSIS
+    sudo cpan App::p
+
+# Documentation
+
+See [App::p](https://metacpan.org/module/App::p)
+
+# Usage
 
     Usage: p [-lneE etc] 'code'
         The code can make use of:
@@ -24,7 +28,7 @@ package App::p;
         get,head,getprint,getstore,mirror from LWP::Simple
         sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
 
-    Examples:
+# Examples
 
     p 'dd [File::Spec->path]'   # dynamically load arbitrary modules
     p -pe 's/foo/bar/' foo.txt  # use your favorite options like -lane
@@ -34,15 +38,4 @@ package App::p;
     p 'dd ExtUtils::Installed->new->modules' # list all installed modules
     p '  dd xl r "/etc/xml/xml-core.xml"'    # print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
-    p 'dd flatten {foo=>{var=>2}}'       # print {"foo.var" => 2}
-    p 'dd +{foo=>{var=>2}} ~~ dpath "//foo"' # dpath search for foo, prints  [{var => 2}]
-
-=head1 ACKNOWLEDGEMENTS
-
-This is based on Randy Stauner's
-L<http://blogs.perl.org/users/randy_stauner/2011/06/exploratory-one-liners-with-less-typing.html>
-and Marco Fontani's L<https://gist.github.com/1042504>.
-
-=cut
-
-1;
+    p 'p get "http://icanhazip.com"'         # print contents of url

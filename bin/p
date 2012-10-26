@@ -1,23 +1,10 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+use Pod::Usage;
 
-die q{
-Usage: p [-lneE etc] 'code'
-    The code can make use of:
-    r   to File::Slurp::read_file
-    w   to File::Slurp::write_file
-    S   to say()
-    p   to print()
-    dd  to Data::Dump::dd()
-    jd  to JSON::XS::encode (utf8/pretty)
-    jl  to JSON::XS::decode (utf8/allow nonref) a thing
-    xd  to XML::Hash::LX::hash2xml
-    xl  to XML::Hash::LX::xml2hash
-    yd  to YAML::Dump()
-    yl  to YAML::Load()
-    sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
-} unless @ARGV;
+pod2usage() unless @ARGV;
+
 unshift @ARGV, '-E' if @ARGV == 1;
 
 exec
@@ -30,6 +17,7 @@ exec
     '-MFile::Slurp',
     '-MJSON::XS',
     '-MList::AllUtils=:all',
+    '-MLWP::Simple',
     '-Mutf8::all',
     '-MXML::Hash::LX',
     '-MYAML::XS',
@@ -41,7 +29,7 @@ exec
         sub p  { print @_ ? @_ : $_     }
         sub yd { print Dump(shift)      }
         sub yl { Load(shift)            }
-        sub xd { hash2xml(shift)        }
+        sub xd { print hash2xml(shift)  }
         sub xl { xml2hash(shift)        }
         sub jd { print JSON::XS->new->utf8->pretty->encode(shift) }
         sub jl { JSON::XS->new->utf8->allow_nonref->decode(shift) }
@@ -66,6 +54,7 @@ exec
         xl  to XML::Hash::LX::xml2hash()
         yd  to YAML::Dump()
         yl  to YAML::Load()
+        get,head,getprint,getstore,mirror from LWP::Simple
         sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
         flatten,unflatten of Hash::Flatten
         dpath             of Data::Dpath
@@ -78,8 +67,10 @@ exec
     p 'dd yl r "config.yml"'    # chain commands
     p 'S sum 1,2,3,4'           # all of List::AllUtils is at your fingertips
     p 'dd ExtUtils::Installed->new->modules' # list all installed modules
-    p '  dd xl r "/etc/xml/xml-core.xml"'# print dump of hash converted xml
-    p 'p xd xl r "/etc/xml/xml-core.xml"'# print xml converted from hash
-    p 'dd flatten {foo=>{var=>2}}'       # print {"foo.var" => 2}
+    p '  dd xl r "/etc/xml/xml-core.xml"'    # print dump of hash converted xml
+    p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
+    p 'dd flatten {foo=>{var=>2}}'           # print {"foo.var" => 2}
     p 'dd +{foo=>{var=>2}} ~~ dpath "//foo"' # dpath search for foo, prints  [{var => 2}]
+    p 'p get "http://icanhazip.com"'         # print contents of url
+
 =cut

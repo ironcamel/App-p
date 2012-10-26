@@ -1,5 +1,19 @@
 Revision history for App-p
 
+0.0302  2012-09-13
+        Converted README.pod to markdown. This prevents installation of
+        App::README. Thanks Tommy Stanton.
+
+0.0301  2012-07-31
+        xd should print results. Thanks Philip Durbin. 
+
+0.0300  2012-02-28
+        Added support for LWP::Simple in place of IO::All.
+
+0.0200  2012-02-28
+        Added support for IO::All and IO::All::HTTP.
+        Starting to use Pod::Usage.
+
 0.0102  2012-02-10
         Fixed help docs for xd and xl usage. Thanks datamuc.
 
