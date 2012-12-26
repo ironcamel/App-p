@@ -8,13 +8,14 @@ pod2usage() unless @ARGV;
 unshift @ARGV, '-E' if @ARGV == 1;
 
 exec
-    'perl',
+    $^X,
     '-Mwarnings',
     '-ML',
     '-MData::Printer',
     '-MFile::Slurp',
     '-MJSON::XS',
     '-MList::AllUtils=:all',
+    '-MLWP::Protocol::Net::Curl=verbose,1',
     '-MLWP::Simple',
     '-MScalar::Util=looks_like_number',
     '-Mutf8::all',
@@ -22,6 +23,7 @@ exec
     '-MYAML::XS',
     '-E',
     q[BEGIN {
+        $0 = v112;
         sub r  { scalar read_file shift }
         sub w  { write_file @_          }
         sub yd { print Dump(shift)      }
@@ -61,6 +63,6 @@ exec
     p '&p([ExtUtils::Installed->new->modules])' # list all installed modules
     p ' p xl r "/etc/xml/xml-core.xml"'         # print dump of hash converted xml
     p 'xd xl r "/etc/xml/xml-core.xml"'         # print xml converted from hash
-    p 'p get "http://ifconfig.me"'              # print contents of url
+    p 'getprint "http://ifconfig.me"'           # print contents of url
 
 =cut

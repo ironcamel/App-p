@@ -1,6 +1,6 @@
 # About
 
-    Steroids for your perl one-liners. Is that even possible?
+Steroids for your perl one-liners. Is that even possible?
 
 # Installation
 
@@ -35,4 +35,4 @@ See [App::p](https://metacpan.org/module/App::p)
     p '&p([ExtUtils::Installed->new->modules])' # list all installed modules
     p ' p xl r "/etc/xml/xml-core.xml"'         # print dump of hash converted xml
     p 'xd xl r "/etc/xml/xml-core.xml"'         # print xml converted from hash
-    p 'p get "http://ifconfig.me"'              # print contents of url
+    p 'getprint "http://ifconfig.me"'           # print contents of url
