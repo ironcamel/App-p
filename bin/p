@@ -3,32 +3,33 @@ use strict;
 use warnings;
 use Pod::Usage;
 
+# VERSION
+
 pod2usage() unless @ARGV;
 
 unshift @ARGV, '-E' if @ARGV == 1;
 
 exec
-    'perl',
-    '-Mwarnings',
-    '-MClass::Autouse=:superloader',
+    $^X,
+    '-Mwarnings=all',
+    '-M-warnings=deprecated',
+    '-ML',
     '-MData::Dump',
-    '-MFile::Slurp',
-    '-MJSON::XS',
     '-MList::AllUtils=:all',
-    '-MLWP::Simple',
+    (grep { /\b(?:get(?:print|store)?|head|mirror)\b/x } @ARGV)
+        ? ('-MLWP::Simple')
+        : (),
     '-Mutf8::all',
-    '-MXML::Hash::LX',
-    '-MYAML::XS',
     '-E',
     q[BEGIN {
-        sub r  { scalar read_file shift }
-        sub w  { write_file @_          }
+        sub r  { scalar File::Slurp::read_file(shift) }
+        sub w  { File::Slurp::write_file(@_)          }
         sub S  { say @_ ? @_ : $_       }
         sub p  { print @_ ? @_ : $_     }
-        sub yd { print Dump(shift)      }
-        sub yl { Load(shift)            }
-        sub xd { print hash2xml(shift)  }
-        sub xl { xml2hash(shift)        }
+        sub yd { print YAML::XS::Dump(shift)          }
+        sub yl { YAML::XS::Load(shift)                }
+        sub xd { print XML::Hash::LX::hash2xml(shift) }
+        sub xl { XML::Hash::LX::xml2hash(shift)       }
         sub jd { print JSON::XS->new->utf8->pretty->encode(shift) }
         sub jl { JSON::XS->new->utf8->allow_nonref->decode(shift) }
     }], @ARGV;
@@ -65,6 +66,6 @@ exec
     p 'dd ExtUtils::Installed->new->modules' # list all installed modules
     p '  dd xl r "/etc/xml/xml-core.xml"'    # print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
-    p 'p get "http://icanhazip.com"'         # print contents of url
+    p 'getprint "http://icanhazip.com"'      # print contents of url
 
 =cut
