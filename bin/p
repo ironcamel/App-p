@@ -26,12 +26,12 @@ exec
         sub w  { File::Slurp::write_file(@_)          }
         sub S  { say @_ ? @_ : $_       }
         sub p  { print @_ ? @_ : $_     }
-        sub yd { print YAML::XS::Dump(shift)          }
-        sub yl { YAML::XS::Load(shift)                }
-        sub xd { print XML::Hash::LX::hash2xml(shift) }
-        sub xl { XML::Hash::LX::xml2hash(shift)       }
-        sub jd { print JSON::XS->new->utf8->pretty->encode(shift) }
-        sub jl { JSON::XS->new->utf8->allow_nonref->decode(shift) }
+        sub yd { print Encode::decode_utf8(YAML::XS::Dump(shift))                       }
+        sub yl { YAML::XS::Load(shift)                                                  }
+        sub xd { print Encode::decode_utf8(XML::Hash::LX::hash2xml(shift))              }
+        sub xl { XML::Hash::LX::xml2hash(shift)                                         }
+        sub jd { print Encode::decode_utf8(JSON::XS->new->utf8->pretty->encode(shift))  }
+        sub jl { JSON::XS->new->utf8->allow_nonref->decode(shift)                       }
     }], @ARGV;
 
 
