@@ -1,5 +1,9 @@
 Revision history for App-p
 
+0.0304  2013-02-10
+        Fixed unicode issues for jd, xd, and yd.
+        Thanks Stanislaw Pusep! (https://github.com/creaktive)
+
 0.0303  2012-12-28
         Made a huge performance boost to improve startup time. Modules such as
             File::Slurp, JSON, YAML and LWP are only loaded if needed.

@@ -10,8 +10,8 @@ package App::p;
 
     Usage: p [-lneE etc] 'code'
         The code can make use of:
-        r   to File::Slurp::read_file
-        w   to File::Slurp::write_file
+        r   to File::Slurp::read_file()
+        w   to File::Slurp::write_file()
         S   to say()
         p   to print()
         dd  to Data::Dump::dd()
@@ -35,6 +35,29 @@ package App::p;
     p '  dd xl r "/etc/xml/xml-core.xml"'    # print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
     p 'p get "http://icanhazip.com"'         # print contents of url
+    p 'dd uniq map $_->{ostext}, @{ jl get "http://www.cpantesters.org/distro/A/App-p.json" }' # have fun!
+
+=head1 CONTRIBUTORS
+
+=over 4
+
+=item *
+
+datamuc <L<https://github.com/datamuc>>
+
+=item *
+
+Stanislaw Pusep <L<https://github.com/creaktive>>
+
+=item *
+
+Stefan Corneliu Petrea <L<https://github.com/wsdookadr>>
+
+=item *
+
+Tommy Stanton <L<https://github.com/tommystanton>>
+
+=back
 
 =head1 ACKNOWLEDGEMENTS
 

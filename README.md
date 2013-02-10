@@ -39,3 +39,4 @@ See [App::p](https://metacpan.org/module/App::p)
     p '  dd xl r "/etc/xml/xml-core.xml"'    # print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
     p 'p get "http://icanhazip.com"'         # print contents of url
+    p 'dd uniq map $_->{ostext}, @{ jl get "http://www.cpantesters.org/distro/A/App-p.json" }' # have fun!

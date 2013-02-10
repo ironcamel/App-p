@@ -14,25 +14,25 @@ exec
     '-Mwarnings=all',
     '-M-warnings=deprecated',
     '-ML',
-    '-MData::Dump',
+    '-MData::Dump=dd,dump',
     '-MList::AllUtils=:all',
     (grep { /\b(?:get(?:print|store)?|head|mirror)\b/x } @ARGV)
         ? ('-MLWP::Simple')
         : (),
     '-Mutf8::all',
     '-E',
-    q[BEGIN {
+    q[
         sub r  { scalar File::Slurp::read_file(shift) }
-        sub w  { File::Slurp::write_file(@_)          }
-        sub S  { say @_ ? @_ : $_       }
-        sub p  { print @_ ? @_ : $_     }
-        sub yd { print Encode::decode_utf8(YAML::XS::Dump(shift))                       }
-        sub yl { YAML::XS::Load(shift)                                                  }
-        sub xd { print Encode::decode_utf8(XML::Hash::LX::hash2xml(shift))              }
-        sub xl { XML::Hash::LX::xml2hash(shift)                                         }
-        sub jd { print Encode::decode_utf8(JSON::XS->new->utf8->pretty->encode(shift))  }
-        sub jl { JSON::XS->new->utf8->allow_nonref->decode(shift)                       }
-    }], @ARGV;
+        sub w  { File::Slurp::write_file(@_) }
+        sub S  { say @_ ? @_ : $_ }
+        sub p  { print @_ ? @_ : $_ }
+        sub jd { print Encode::decode_utf8(JSON::XS->new->utf8->pretty->encode(shift)) }
+        sub jl { JSON::XS->new->utf8->allow_nonref->decode(shift) }
+        sub xd { print Encode::decode_utf8(XML::Hash::LX::hash2xml(shift)) }
+        sub xl { XML::Hash::LX::xml2hash(shift) }
+        sub yd { print Encode::decode_utf8(YAML::XS::Dump(shift)) }
+        sub yl { YAML::XS::Load(shift) }
+    ], @ARGV;
 
 
 # PODNAME: p
@@ -42,8 +42,8 @@ exec
 
     Usage: p [-lneE etc] 'code'
         The code can make use of:
-        r   to File::Slurp::read_file
-        w   to File::Slurp::write_file
+        r   to File::Slurp::read_file()
+        w   to File::Slurp::write_file()
         S   to say()
         p   to print()
         dd  to Data::Dump::dd()
@@ -67,5 +67,34 @@ exec
     p '  dd xl r "/etc/xml/xml-core.xml"'    # print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
     p 'p get "http://icanhazip.com"'         # print contents of url
+    p 'dd uniq map $_->{ostext}, @{ jl get "http://www.cpantesters.org/distro/A/App-p.json" }' # have fun!
+
+=head1 CONTRIBUTORS
+
+=over 4
+
+=item *
+
+datamuc <L<https://github.com/datamuc>>
+
+=item *
+
+Stanislaw Pusep <L<https://github.com/creaktive>>
+
+=item *
+
+Stefan Corneliu Petrea <L<https://github.com/wsdookadr>>
+
+=item *
+
+Tommy Stanton <L<https://github.com/tommystanton>>
+
+=back
+
+=head1 ACKNOWLEDGEMENTS
+
+This is based on Randy Stauner's
+L<http://blogs.perl.org/users/randy_stauner/2011/06/exploratory-one-liners-with-less-typing.html>
+and Marco Fontani's L<https://gist.github.com/1042504>.
 
 =cut
