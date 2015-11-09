@@ -10,17 +10,19 @@ package App::p;
 
     Usage: p [-lneE etc] 'code'
         The code can make use of:
-        r   to File::Slurp::read_file()
-        w   to File::Slurp::write_file()
+        r   to File::Slurper::read_text()
+        w   to File::Slurper::write_file()
         S   to say()
         p   to print()
         dd  to Data::Dump::dd()
-        jd  to JSON::XS::encode (utf8/pretty)
-        jl  to JSON::XS::decode (utf8/allow nonref) a thing
+        jd  to JSON::encode (utf8/pretty)
+        jl  to JSON::decode (utf8/allow nonref) a thing
         xd  to XML::Hash::LX::hash2xml()
         xl  to XML::Hash::LX::xml2hash()
         yd  to YAML::Dump()
         yl  to YAML::Load()
+        xj  to convert an xml file to json
+        jx  to convert a json file to xml
         get,head,getprint,getstore,mirror from LWP::Simple
         sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
 
@@ -35,6 +37,8 @@ package App::p;
     p '  dd xl r "/etc/xml/xml-core.xml"'    # print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
     p 'p get "http://icanhazip.com"'         # print contents of url
+    p 'p xj "file.xml"          #   (xj xml to json )print xml's equivalent json
+    p 'p jx "file.json"         #   (jx json to xml )print json's equivalent xml 
     p 'dd uniq map $_->{ostext}, @{ jl get "http://www.cpantesters.org/distro/A/App-p.json" }' # have fun!
 
 =head1 CONTRIBUTORS
@@ -44,6 +48,10 @@ package App::p;
 =item *
 
 datamuc <L<https://github.com/datamuc>>
+
+=item *
+
+Jenish Gnanasicamani <L<https://github.com/JenishGnanasicamani>>
 
 =item *
 

@@ -22,18 +22,18 @@ exec
     '-Mutf8::all',
     '-E',
     q[
-        sub r  { scalar File::Slurp::read_file(shift) }
-        sub w  { File::Slurp::write_file(@_) }
+        sub r  { scalar File::Slurper::read_text(shift) }
+        sub w  { File::Slurper::write_file(@_) }
         sub S  { say @_ ? @_ : $_ }
         sub p  { print @_ ? @_ : $_ }
-        sub jd { print Encode::decode_utf8(JSON::XS->new->utf8->pretty->encode(shift)) }
-        sub jl { JSON::XS->new->utf8->allow_nonref->decode(shift) }
+        sub jd { print Encode::decode_utf8(JSON->new->utf8->pretty->encode(shift)) }
+        sub jl { JSON->new->utf8->allow_nonref->decode(shift) }
         sub xd { print Encode::decode_utf8(XML::Hash::LX::hash2xml(shift)) }
         sub xl { XML::Hash::LX::xml2hash(shift) }
-        sub yd { print Encode::decode_utf8(YAML::XS::Dump(shift)) }
-        sub yl { YAML::XS::Load(shift) }
-        sub xj { print JSON::XS->new->utf8->pretty->encode(XML::Simple->new(keepRoot => 1)->XMLin(shift))}
-        sub jx { print XML::Simple->new(keepRoot => 1)->XMLout(JSON::XS->new->utf8->allow_nonref->decode(scalar File::Slurp::read_file(shift)))}
+        sub yd { print Encode::decode_utf8(YAML::Dump(shift)) }
+        sub yl { YAML::Load(shift) }
+        sub xj { print JSON->new->utf8->pretty->encode(XML::Simple->new(keepRoot => 1)->XMLin(shift))}
+        sub jx { print XML::Simple->new(keepRoot => 1)->XMLout(JSON->new->utf8->allow_nonref->decode(scalar File::Slurper::read_text(shift)))}
     ], @ARGV;
 
 
@@ -44,18 +44,19 @@ exec
 
     Usage: p [-lneE etc] 'code'
         The code can make use of:
-        r   to File::Slurp::read_file()
-        w   to File::Slurp::write_file()
+        r   to File::Slurper::read_text()
+        w   to File::Slurper::write_file()
         S   to say()
         p   to print()
         dd  to Data::Dump::dd()
-        jd  to JSON::XS::encode (utf8/pretty)
-        jl  to JSON::XS::decode (utf8/allow nonref) a thing
+        jd  to JSON::encode (utf8/pretty)
+        jl  to JSON::decode (utf8/allow nonref) a thing
         xd  to XML::Hash::LX::hash2xml()
         xl  to XML::Hash::LX::xml2hash()
         yd  to YAML::Dump()
         yl  to YAML::Load()
-        xj  to JSON::encode_json(XML::Simple)
+        xj  to convert an xml file to json
+        jx  to convert a json file to xml
         get,head,getprint,getstore,mirror from LWP::Simple
         sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
 
@@ -71,7 +72,7 @@ exec
     p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
     p 'p get "http://icanhazip.com"'         # print contents of url
     p 'p xj "file.xml"          #   (xj xml to json )print xml's equivalent json
-    p 'p jx "file.json"          #   (jx json to xml )print json's equivalent xml 
+    p 'p jx "file.json"         #   (jx json to xml )print json's equivalent xml 
     p 'dd uniq map $_->{ostext}, @{ jl get "http://www.cpantesters.org/distro/A/App-p.json" }' # have fun!
 
 =head1 CONTRIBUTORS
@@ -81,6 +82,10 @@ exec
 =item *
 
 datamuc <L<https://github.com/datamuc>>
+
+=item *
+
+Jenish Gnanasicamani <L<https://github.com/JenishGnanasicamani>>
 
 =item *
 

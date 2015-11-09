@@ -1,5 +1,11 @@
 Revision history for App-p
 
+0.0400  2015-11-09
+        Removed ::XS dependencies
+        Switched from File::Slurp to File::Slurper
+        Added support for for jx and xj to translate between json and xml
+        Thanks Jenish Gnanasicamani! (https://github.com/JenishGnanasicamani)
+
 0.0304  2013-02-10
         Fixed unicode issues for jd, xd, and yd.
         Thanks Stanislaw Pusep! (https://github.com/creaktive)
