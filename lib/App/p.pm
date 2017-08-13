@@ -6,6 +6,10 @@ package App::p;
 
 # ABSTRACT: Steroids for your perl one-liners.
 
+=head1 DESCRIPTION
+
+This module provides a script 'p', which has handy shortcuts for modules that are used in one-liners.
+
 =head1 SYNOPSIS
 
     Usage: p [-lneE etc] 'code'
@@ -38,7 +42,7 @@ package App::p;
     p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
     p 'p get "http://icanhazip.com"'         # print contents of url
     p 'p xj "file.xml"          #   (xj xml to json )print xml's equivalent json
-    p 'p jx "file.json"         #   (jx json to xml )print json's equivalent xml 
+    p 'p jx "file.json"         #   (jx json to xml )print json's equivalent xml
     p 'dd uniq map $_->{ostext}, @{ jl get "http://www.cpantesters.org/distro/A/App-p.json" }' # have fun!
 
 =head1 CONTRIBUTORS
