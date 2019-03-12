@@ -15,7 +15,7 @@ This module provides a script 'p', which has handy shortcuts for modules that ar
     Usage: p [-lneE etc] 'code'
         The code can make use of:
         r   to File::Slurper::read_text()
-        w   to File::Slurper::write_file()
+        w   to File::Slurper::write_text()
         S   to say()
         p   to print()
         dd  to Data::Dump::dd()

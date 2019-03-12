@@ -15,7 +15,7 @@ See [App::p](https://metacpan.org/module/App::p)
     Usage: p [-lneE etc] 'code'
         The code can make use of:
         r   to File::Slurper::read_text()
-        w   to File::Slurper::write_file()
+        w   to File::Slurper::write_text()
         S   to say()
         p   to print()
         dd  to Data::Dump::dd()

@@ -23,7 +23,7 @@ exec
     '-E',
     q[
         sub r  { scalar File::Slurper::read_text(shift) }
-        sub w  { File::Slurper::write_file(@_) }
+        sub w  { File::Slurper::write_text(@_) }
         sub S  { say @_ ? @_ : $_ }
         sub p  { print @_ ? @_ : $_ }
         sub jd { print Encode::decode_utf8(JSON->new->utf8->pretty->encode(shift)) }
@@ -45,7 +45,7 @@ exec
     Usage: p [-lneE etc] 'code'
         The code can make use of:
         r   to File::Slurper::read_text()
-        w   to File::Slurper::write_file()
+        w   to File::Slurper::write_text()
         S   to say()
         p   to print()
         dd  to Data::Dump::dd()
