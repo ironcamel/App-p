@@ -29,6 +29,8 @@ This module provides a script 'p', which has handy shortcuts for modules that ar
         jx  to convert a json file to xml
         get,head,getprint,getstore,mirror from LWP::Simple
         sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
+        flatten,unflatten of Hash::Flatten
+        dpath             of Data::Dpath
 
     Examples:
 
@@ -44,6 +46,8 @@ This module provides a script 'p', which has handy shortcuts for modules that ar
     p 'p xj "file.xml"          #   (xj xml to json )print xml's equivalent json
     p 'p jx "file.json"         #   (jx json to xml )print json's equivalent xml
     p 'dd uniq map $_->{ostext}, @{ jl get "http://www.cpantesters.org/distro/A/App-p.json" }' # have fun!
+    p 'dd flatten {foo=>{var=>2}}'       # print {"foo.var" => 2}
+    p 'dd +{foo=>{var=>2}} ~~ dpath "//foo"' # dpath search for foo, prints  [{var => 2}]
 
 =head1 CONTRIBUTORS
 
