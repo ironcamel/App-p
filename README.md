@@ -1,3 +1,7 @@
+# DESCRIPTION
+
+This module provides a script 'p', which has handy shortcuts for modules that are used in one-liners.
+
 # SYNOPSIS
 
     Usage: p [-lneE etc] 'code'
@@ -30,11 +34,21 @@
     p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
     p 'dd flatten {foo=>{var=>2}}'       # print {"foo.var" => 2}
     p 'dd +{foo=>{var=>2}} ~~ dpath "//foo"' # dpath search for foo, prints  [{var => 2}]
+    p 'p get "http://icanhazip.com"'         # print contents of url
+    p 'p xj "file.xml"          #   (xj xml to json )print xml's equivalent json
+    p 'p jx "file.json"         #   (jx json to xml )print json's equivalent xml
+    p 'dd uniq map $_->{ostext}, @{ jl get "http://www.cpantesters.org/distro/A/App-p.json" }' # have fun!
+
+# CONTRIBUTORS
+
+- datamuc <[https://github.com/datamuc](https://github.com/datamuc)>
+- Jenish Gnanasicamani <[https://github.com/JenishGnanasicamani](https://github.com/JenishGnanasicamani)>
+- Stanislaw Pusep <[https://github.com/creaktive](https://github.com/creaktive)>
+- Stefan Corneliu Petrea <[https://github.com/wsdookadr](https://github.com/wsdookadr)>
+- Tommy Stanton <[https://github.com/tommystanton](https://github.com/tommystanton)>
 
 # ACKNOWLEDGEMENTS
 
 This is based on Randy Stauner's
 [http://blogs.perl.org/users/randy\_stauner/2011/06/exploratory-one-liners-with-less-typing.html](http://blogs.perl.org/users/randy_stauner/2011/06/exploratory-one-liners-with-less-typing.html)
 and Marco Fontani's [https://gist.github.com/1042504](https://gist.github.com/1042504).
-    p 'p get "http://icanhazip.com"'         # print contents of url
-    p 'dd uniq map $_->{ostext}, @{ jl get "http://www.cpantesters.org/distro/A/App-p.json" }' # have fun!
