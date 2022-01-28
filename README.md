@@ -2,17 +2,19 @@
 
     Usage: p [-lneE etc] 'code'
         The code can make use of:
-        r   to File::Slurp::read_file
-        w   to File::Slurp::write_file
+        r   to File::Slurper::read_text()
+        w   to File::Slurper::write_text()
         S   to say()
         p   to print()
         dd  to Data::Dump::dd()
-        jd  to JSON::XS::encode (utf8/pretty)
-        jl  to JSON::XS::decode (utf8/allow nonref) a thing
+        jd  to JSON::encode (utf8/pretty)
+        jl  to JSON::decode (utf8/allow nonref) a thing
         xd  to XML::Hash::LX::hash2xml()
         xl  to XML::Hash::LX::xml2hash()
         yd  to YAML::Dump()
         yl  to YAML::Load()
+        xj  to convert an xml file to json
+        jx  to convert a json file to xml
         get,head,getprint,getstore,mirror from LWP::Simple
         sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
 
@@ -34,3 +36,5 @@
 This is based on Randy Stauner's
 [http://blogs.perl.org/users/randy\_stauner/2011/06/exploratory-one-liners-with-less-typing.html](http://blogs.perl.org/users/randy_stauner/2011/06/exploratory-one-liners-with-less-typing.html)
 and Marco Fontani's [https://gist.github.com/1042504](https://gist.github.com/1042504).
+    p 'p get "http://icanhazip.com"'         # print contents of url
+    p 'dd uniq map $_->{ostext}, @{ jl get "http://www.cpantesters.org/distro/A/App-p.json" }' # have fun!

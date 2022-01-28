@@ -1,11 +1,30 @@
 Revision history for App-p
 
+0.0400  2015-11-09
+        Removed ::XS dependencies
+        Switched from File::Slurp to File::Slurper
+        Added support for for jx and xj to translate between json and xml
+        Thanks Jenish Gnanasicamani! (https://github.com/JenishGnanasicamani)
+
+0.0304  2013-02-10
+        Fixed unicode issues for jd, xd, and yd.
+        Thanks Stanislaw Pusep! (https://github.com/creaktive)
+
+0.0303  2012-12-28
+        Made a huge performance boost to improve startup time. Modules such as
+            File::Slurp, JSON, YAML and LWP are only loaded if needed.
+        Use L instead of Class::Autouse to fix issue with loading DateTime.
+            This used to not work: p 'S DateTime->today'
+        Thanks Stanislaw Pusep! (https://github.com/creaktive)
+
 0.0302  2012-09-13
         Converted README.pod to markdown. This prevents installation of
-        App::README. Thanks Tommy Stanton.
+        App::README.
+        Thanks Tommy Stanton!
 
 0.0301  2012-07-31
-        xd should print results. Thanks Philip Durbin. 
+        xd should print results.
+        Thanks Philip Durbin!
 
 0.0300  2012-02-28
         Added support for LWP::Simple in place of IO::All.
