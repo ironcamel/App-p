@@ -40,6 +40,8 @@ This module provides a script 'p', which has handy shortcuts for modules that ar
     p 'dd ExtUtils::Installed->new->modules' # list all installed modules
     p '  dd xl r "/etc/xml/xml-core.xml"'    # print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
+    p 'dd flatten {foo=>{var=>2}}'       # print {"foo.var" => 2}
+    p 'dd +{foo=>{var=>2}} ~~ dpath "//foo"' # dpath search for foo, prints  [{var => 2}]
     p 'p get "http://icanhazip.com"'         # print contents of url
     p 'p xj "file.xml"          #   (xj xml to json )print xml's equivalent json
     p 'p jx "file.json"         #   (jx json to xml )print json's equivalent xml

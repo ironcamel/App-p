@@ -1,16 +1,8 @@
-# About
+# DESCRIPTION
 
-    Steroids for your perl one-liners. Is that even possible?
+This module provides a script 'p', which has handy shortcuts for modules that are used in one-liners.
 
-# Installation
-
-    sudo cpan App::p
-
-# Documentation
-
-See [App::p](https://metacpan.org/module/App::p)
-
-# Usage
+# SYNOPSIS
 
     Usage: p [-lneE etc] 'code'
         The code can make use of:
@@ -30,7 +22,7 @@ See [App::p](https://metacpan.org/module/App::p)
         get,head,getprint,getstore,mirror from LWP::Simple
         sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
 
-# Examples
+    Examples:
 
     p 'dd [File::Spec->path]'   # dynamically load arbitrary modules
     p -pe 's/foo/bar/' foo.txt  # use your favorite options like -lane
@@ -40,5 +32,23 @@ See [App::p](https://metacpan.org/module/App::p)
     p 'dd ExtUtils::Installed->new->modules' # list all installed modules
     p '  dd xl r "/etc/xml/xml-core.xml"'    # print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
+    p 'dd flatten {foo=>{var=>2}}'       # print {"foo.var" => 2}
+    p 'dd +{foo=>{var=>2}} ~~ dpath "//foo"' # dpath search for foo, prints  [{var => 2}]
     p 'p get "http://icanhazip.com"'         # print contents of url
+    p 'p xj "file.xml"          #   (xj xml to json )print xml's equivalent json
+    p 'p jx "file.json"         #   (jx json to xml )print json's equivalent xml
     p 'dd uniq map $_->{ostext}, @{ jl get "http://www.cpantesters.org/distro/A/App-p.json" }' # have fun!
+
+# CONTRIBUTORS
+
+- datamuc <[https://github.com/datamuc](https://github.com/datamuc)>
+- Jenish Gnanasicamani <[https://github.com/JenishGnanasicamani](https://github.com/JenishGnanasicamani)>
+- Stanislaw Pusep <[https://github.com/creaktive](https://github.com/creaktive)>
+- Stefan Corneliu Petrea <[https://github.com/wsdookadr](https://github.com/wsdookadr)>
+- Tommy Stanton <[https://github.com/tommystanton](https://github.com/tommystanton)>
+
+# ACKNOWLEDGEMENTS
+
+This is based on Randy Stauner's
+[http://blogs.perl.org/users/randy\_stauner/2011/06/exploratory-one-liners-with-less-typing.html](http://blogs.perl.org/users/randy_stauner/2011/06/exploratory-one-liners-with-less-typing.html)
+and Marco Fontani's [https://gist.github.com/1042504](https://gist.github.com/1042504).

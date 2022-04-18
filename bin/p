@@ -15,9 +15,22 @@ exec
     '-M-warnings=deprecated',
     '-ML',
     '-MData::Dump=dd,dump',
+    '-MFile::Slurper',
+    (grep { /\b(?:xd|xl)\b/ } @ARGV)
+        ? ('-MXML::Hash::LX')
+	: (),
     '-MList::AllUtils=:all',
     (grep { /\b(?:get(?:print|store)?|head|mirror)\b/x } @ARGV)
         ? ('-MLWP::Simple')
+        : (),
+    (grep { /\b(?:yl|yd)\b/ } @ARGV)
+        ? ('-MYAML::XS')
+        : (),
+    (grep { /\bdpath\b/ } @ARGV)
+        ? ('-MData::DPath=dpath')
+        : (),
+    (grep { /\bflatten\b/ } @ARGV)
+        ? ('-MHash::Flatten=:all')
         : (),
     '-Mutf8::all',
     '-E',
@@ -30,8 +43,8 @@ exec
         sub jl { JSON->new->utf8->allow_nonref->decode(shift) }
         sub xd { print Encode::decode_utf8(XML::Hash::LX::hash2xml(shift)) }
         sub xl { XML::Hash::LX::xml2hash(shift) }
-        sub yd { print Encode::decode_utf8(YAML::Dump(shift)) }
-        sub yl { YAML::Load(shift) }
+        sub yd { print Encode::decode_utf8(YAML::XS::Dump(shift)) }
+        sub yl { YAML::XS::Load(shift) }
         sub xj { print JSON->new->utf8->pretty->encode(XML::Simple->new(keepRoot => 1)->XMLin(shift))}
         sub jx { print XML::Simple->new(keepRoot => 1)->XMLout(JSON->new->utf8->allow_nonref->decode(scalar File::Slurper::read_text(shift)))}
     ], @ARGV;
@@ -53,12 +66,14 @@ exec
         jl  to JSON::decode (utf8/allow nonref) a thing
         xd  to XML::Hash::LX::hash2xml()
         xl  to XML::Hash::LX::xml2hash()
-        yd  to YAML::Dump()
-        yl  to YAML::Load()
+        yd  to YAML::XS::Dump()
+        yl  to YAML::XS::Load()
         xj  to convert an xml file to json
         jx  to convert a json file to xml
         get,head,getprint,getstore,mirror from LWP::Simple
         sum,first,min,max,zip,uniq,any,all,none ... all of List::AllUtils
+        flatten,unflatten of Hash::Flatten
+        dpath             of Data::Dpath
 
     Examples:
 
@@ -70,6 +85,8 @@ exec
     p 'dd ExtUtils::Installed->new->modules' # list all installed modules
     p '  dd xl r "/etc/xml/xml-core.xml"'    # print dump of hash converted xml
     p 'p xd xl r "/etc/xml/xml-core.xml"'    # print xml converted from hash
+    p 'dd flatten {foo=>{var=>2}}'           # print {"foo.var" => 2}
+    p 'dd +{foo=>{var=>2}} ~~ dpath "//foo"' # dpath search for foo, prints  [{var => 2}]
     p 'p get "http://icanhazip.com"'         # print contents of url
     p 'p xj "file.xml"          #   (xj xml to json )print xml's equivalent json
     p 'p jx "file.json"         #   (jx json to xml )print json's equivalent xml 
